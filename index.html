@@ -8,15 +8,38 @@
 </head>
 <body>
     <div id="app">
-        <h1>Welcome to Petvoj Radio</h1>
+        <h1>Welcome to Petvoj Radio 🎵</h1>
+
+        <!-- Song Request Form -->
+        <div id="request-form">
+            <h2>Request a Song</h2>
+            <form class="cc_request_form" data-username="petvoj" data-charset="CP1250">
+                <div data-type="result"></div>
+                <label>Song Artist: <input type="text" name="request[artist]" size="40" maxlength="127" /></label><br />
+                <label>Song Title: <input type="text" name="request[title]" size="40" maxlength="127" /></label><br />
+                <label>Dedicated to: <input type="text" name="request[dedication]" size="40" maxlength="127" /></label><br />
+                <label>Your Name: <input type="text" name="request[sender]" size="40" maxlength="127" /></label><br />
+                <label>Your Email: <input type="text" name="request[email]" size="40" maxlength="127" /></label><br />
+                <input type="button" value="Submit Song Request" data-type="submit" /><br />
+            </form>
+        </div>
+
+        <!-- Song List -->
         <div id="song-list">
             <h2>Available Songs:</h2>
             <ul id="songs"></ul>
         </div>
+
+        <!-- Audio Player -->
         <audio id="audio-player" controls>
             Your browser does not support the audio element.
         </audio>
     </div>
+
+    <!-- Centova Cast Request Script -->
+    <script language="javascript" type="text/javascript" src="https://control.internet-radio.com:2199/system/request.js"></script>
+
+    <!-- Custom Script -->
     <script src="script.js"></script>
 </body>
 </html>
