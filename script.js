@@ -1,12 +1,29 @@
+// Updated API Endpoint
+const API_ENDPOINT = "/petvoj";
+
 document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("search-input");
   const searchButton = document.getElementById("search-button");
   const resultsList = document.getElementById("results-list");
   const playlistList = document.getElementById("playlist-list");
 
-  // Search for songs using Centova Cast widget
-  searchButton.addEventListener("click", () => {
-    const query = searchInput.value.trim();
+  // Unified function for API calls
+  async function fetchFromAPI(queryType, queryParam = "") {
+    try {
+      const response = await fetch(`${API_ENDPOINT}?type=${queryType}&query=${encodeURIComponent(queryParam)}`);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("API Error:", error);
+      return null;
+    }
+  }
+
+  // Search for songs
+  searchButton.addEventListener("click", async () => {
+    const query = searchInput.value.trim().toLowerCase();
     resultsList.innerHTML = ""; // Clear previous results
 
     if (!query) {
@@ -14,34 +31,33 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Trigger Centova Cast request search widget
-    const searchWidget = document.querySelector(".cc_requests");
-    if (searchWidget) {
-      searchWidget.setAttribute("data-query", query);
-
-      // Allow Centova Cast widget to handle the search
-      const searchEvent = new Event("change");
-      searchWidget.dispatchEvent(searchEvent);
+    const songs = await fetchFromAPI("search", query);
+    if (songs && songs.length > 0) {
+      songs.forEach(song => {
+        const li = document.createElement("li");
+        li.textContent = `${song.title} by ${song.artist}`;
+        resultsList.appendChild(li);
+      });
     } else {
-      resultsList.innerHTML = "<li>Search widget is not configured correctly.</li>";
+      resultsList.innerHTML = "<li>No results found.</li>";
     }
   });
 
-  // Show playlist details (Centova Cast On-Demand Widget)
-  playlistList.addEventListener("click", event => {
+  // Display playlists
+  playlistList.addEventListener("click", async (event) => {
     if (event.target.tagName === "LI") {
-      const playlistName = event.target.textContent;
-      const playlistWidget = document.querySelector(".cc_ondemand_content");
+      const playlistName = event.target.textContent.trim();
+      resultsList.innerHTML = ""; // Clear results
 
-      resultsList.innerHTML = ""; // Clear search results
-      if (playlistWidget) {
-        playlistWidget.setAttribute("data-query", playlistName);
-
-        // Allow Centova Cast widget to handle the playlist display
-        const playlistEvent = new Event("change");
-        playlistWidget.dispatchEvent(playlistEvent);
+      const playlistSongs = await fetchFromAPI("playlist", playlistName);
+      if (playlistSongs && playlistSongs.length > 0) {
+        playlistSongs.forEach(song => {
+          const li = document.createElement("li");
+          li.textContent = song;
+          resultsList.appendChild(li);
+        });
       } else {
-        resultsList.innerHTML = "<li>Playlist widget is not configured correctly.</li>";
+        resultsList.innerHTML = "<li>No songs found in this playlist.</li>";
       }
     }
   });
