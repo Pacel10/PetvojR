@@ -3,23 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Petvoj Radio</title>
+  <title>Music Search and Playlists</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Welcome to Petvoj Radio</h1>
-
-  <!-- Request Widget -->
-  <div class="cc_requests" data-username="petvoj" data-charset="CP1250" data-mount="/api/search">
-    Loading...
-  </div>
-
-  <!-- On-Demand Widget -->
-  <div class="cc_ondemand_content" data-username="petvoj" data-charset="CP1250" data-mount="/api/search">
-    Loading...
-  </div>
-
-  <!-- Include Scripts -->
+  <header>
+    <h1>Music Search and Playlists</h1>
+  </header>
+  <main>
+    <section id="search-section">
+      <input type="text" id="search-input" placeholder="Search for songs...">
+      <button id="search-button">Search</button>
+    </section>
+    <section id="results-section">
+      <h2>Search Results</h2>
+      <ul id="results-list"></ul>
+    </section>
+    <section id="playlist-section">
+      <h2>Playlists</h2>
+      <ul id="playlist-list">
+        <!-- Example static playlist (can be dynamically updated) -->
+        <li>Chill Vibes</li>
+        <li>Workout Mix</li>
+        <li>Top 2024 Hits</li>
+      </ul>
+    </section>
+  </main>
   <script src="script.js"></script>
 </body>
 </html>
