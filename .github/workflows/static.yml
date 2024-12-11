@@ -1,0 +1,46 @@
+# GitHub Actions workflow for deploying static HTML content to GitHub Pages
+name: Deploy static HTML to Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Set permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Prevent overlapping deployments
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    
+      # Step 1: Check out the repository code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up GitHub Pages configuration
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      # Step 3: Upload static HTML files
+      - name: Upload HTML Files
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Define the directory to upload (adjust this if your HTML files are in a subfolder)
+          path: '.'
+
+      # Step 4: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
