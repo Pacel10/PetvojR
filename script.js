@@ -1,62 +1,49 @@
-// Replace with your Centova Cast server API details
-const CENTOVA_API_URL = 'http://control.internet-radio.com:2199/rpc/petvoj/listMedia';
-const CENTOVA_API_KEY = '7tEFCbmT4SV6cUa';
+// URL to fetch files from Centova Cast's media directory
+const MEDIA_URL = "https://control.internet-radio.com:2199/client/index.php?page=filemanager&path=media/";
 
-// Elements
-const songSearch = document.getElementById('songSearch');
-const searchButton = document.getElementById('searchButton');
-const showAllButton = document.getElementById('showAll');
-const songList = document.getElementById('songList');
+// Allowed audio file types
+const ALLOWED_EXTENSIONS = [".mp3", ".m4a"];
 
-// Fetch songs from Centova Cast
-async function fetchSongs() {
+// Fetch and display songs dynamically
+async function fetchMediaFiles() {
     try {
-        const response = await fetch(`${CENTOVA_API_URL}?password=${CENTOVA_API_KEY}`);
-        const data = await response.json();
-        return data.media; // Return the media list
+        // Fetch HTML of the directory page
+        const response = await fetch(MEDIA_URL);
+        const parser = new DOMParser();
+        const htmlDoc = parser.parseFromString(await response.text(), "text/html");
+
+        // Get all links and filter by file extensions
+        const files = Array.from(htmlDoc.querySelectorAll("a"))
+            .map(link => link.getAttribute("href"))
+            .filter(file => ALLOWED_EXTENSIONS.some(ext => file.endsWith(ext)));
+
+        return files;
     } catch (error) {
-        console.error('Error fetching songs:', error);
+        console.error("Error fetching media files:", error);
         return [];
     }
 }
 
-// Display songs in the UI
-function displaySongs(songs) {
-    songList.innerHTML = '';
-    if (songs.length === 0) {
-        songList.innerHTML = '<p>No songs found.</p>';
-        return;
-    }
+// Populate the song list
+async function displaySongs() {
+    const songList = document.getElementById("songs");
+    const audioPlayer = document.getElementById("audio-player");
+
+    const songs = await fetchMediaFiles();
     songs.forEach(song => {
-        const songItem = document.createElement('div');
-        songItem.classList.add('song-item');
-        songItem.textContent = song.name; // Assuming "name" contains the song title
-        songItem.onclick = () => playSong(song.url); // Assuming "url" contains the song's playback URL
-        songList.appendChild(songItem);
+        const li = document.createElement("li");
+        const link = document.createElement("a");
+        link.href = `${MEDIA_URL}${song}`;
+        link.textContent = decodeURIComponent(song);
+        link.addEventListener("click", event => {
+            event.preventDefault();
+            audioPlayer.src = link.href;
+            audioPlayer.play();
+        });
+        li.appendChild(link);
+        songList.appendChild(li);
     });
 }
 
-// Play a song
-function playSong(url) {
-    window.open(url, '_blank'); // Open song URL in a new tab
-}
-
-// Search songs
-searchButton.addEventListener('click', async () => {
-    const query = songSearch.value.trim().toLowerCase();
-    const songs = await fetchSongs();
-    const filteredSongs = songs.filter(song => song.name.toLowerCase().includes(query));
-    displaySongs(filteredSongs);
-});
-
-// Show all songs
-showAllButton.addEventListener('click', async () => {
-    const songs = await fetchSongs();
-    displaySongs(songs);
-});
-
-// Initial load
-(async () => {
-    const songs = await fetchSongs();
-    displaySongs(songs);
-})();
+// Initialize song list
+displaySongs();
