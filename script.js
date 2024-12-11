@@ -1,59 +1,56 @@
-// Sample playlist data (simulate search results)
-const playlist = [
-    { id: 1, artist: "Aqours", title: "MY LIST", album: "Love Live!" },
-    { id: 2, artist: "Chika Takami", title: "MY LIST", album: "Love Live!" },
-    { id: 3, artist: "Dia Kurosawa", title: "MY LIST", album: "Love Live!" },
-    { id: 4, artist: "Hanamaru Kunikida", title: "MY LIST", album: "Love Live!" },
-    { id: 5, artist: "Kanan Matsuura", title: "MY LIST", album: "Love Live!" },
-];
+const apiUrl = "http://control.internet-radio.com:2199/start/petvoj/json.xsl"; // Replace with your Centova API endpoint
+const apiPassword = "7tEFCbmT4SV6cUa";
 
-// Elements
-const searchBar = document.getElementById("search-bar");
-const searchStatus = document.getElementById("search-status");
-const results = document.getElementById("results");
+const searchBox = document.getElementById("search-box");
+const showAllButton = document.getElementById("show-all");
+const playlistContainer = document.getElementById("playlist");
 
-// Search function
-function searchSongs(query) {
-    if (!query) return []; // Return empty array if query is empty
-    return playlist.filter(song =>
-        song.artist.toLowerCase().includes(query.toLowerCase()) ||
-        song.title.toLowerCase().includes(query.toLowerCase()) ||
-        song.album.toLowerCase().includes(query.toLowerCase())
-    );
+// Fetch songs from Centova Cast
+async function fetchSongs(query = "") {
+    try {
+        const response = await fetch(`${apiUrl}?q=${encodeURIComponent(query)}`, {
+            headers: { Authorization: `Bearer ${apiPassword}` },
+        });
+        const data = await response.json();
+        return data.songs || [];
+    } catch (error) {
+        console.error("Error fetching songs:", error);
+        return [];
+    }
 }
 
-// Event listener for search bar
-searchBar.addEventListener("input", () => {
-    const query = searchBar.value.trim();
-    searchStatus.style.visibility = "visible"; // Show "Searching..." message
-
-    setTimeout(() => {
-        const resultsList = searchSongs(query);
-        displayResults(resultsList);
-        searchStatus.style.visibility = "hidden"; // Hide "Searching..." after results load
-    }, 500);
-});
-
-// Display search results
-function displayResults(resultsList) {
-    results.innerHTML = ""; // Clear previous results
-
-    if (resultsList.length === 0) {
-        results.innerHTML = "<p>No songs found.</p>";
+// Render songs in the playlist container
+function renderSongs(songs) {
+    playlistContainer.innerHTML = ""; // Clear existing content
+    if (songs.length === 0) {
+        playlistContainer.innerHTML = "<li>No songs found</li>";
         return;
     }
-
-    resultsList.forEach(song => {
-        const resultItem = document.createElement("div");
-        resultItem.classList.add("result-item");
-        resultItem.innerHTML = `
-            <span><strong>Artist:</strong> ${song.artist}</span>
-            <span><strong>Title:</strong> ${song.title}</span>
-            <span><strong>Album:</strong> ${song.album}</span>
+    songs.forEach((song) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+            <span class="song-title">${song.title}</span>
+            <span class="song-details">${song.artist} - ${song.album}</span>
         `;
-        resultItem.addEventListener("click", () => {
-            alert(`You selected: ${song.title} by ${song.artist}`);
-        });
-        results.appendChild(resultItem);
+        playlistContainer.appendChild(listItem);
     });
 }
+
+// Event listener for search box
+searchBox.addEventListener("input", async () => {
+    const query = searchBox.value;
+    const songs = await fetchSongs(query);
+    renderSongs(songs);
+});
+
+// Event listener for "Show All" button
+showAllButton.addEventListener("click", async () => {
+    const songs = await fetchSongs(); // Fetch all songs without a query
+    renderSongs(songs);
+});
+
+// Initialize with all songs
+(async function init() {
+    const songs = await fetchSongs();
+    renderSongs(songs);
+})();
