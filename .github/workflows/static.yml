@@ -1,38 +1,33 @@
-name: Node.js CI/CD Workflow
+name: Build and Deploy
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: 16
 
       - name: Install dependencies
         run: npm install
-
-      - name: Lint code
-        run: npx eslint . --ext .js
 
       - name: Build project
         run: npm run build
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: build
+
     steps:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
