@@ -1,18 +1,12 @@
 {
   "name": "petvojr",
   "version": "1.0.0",
-  "description": "A music streaming platform powered by Centova Cast",
+  "description": "A web app for music streaming",
   "main": "script.js",
   "scripts": {
-    "start": "node script.js",
-    "build": "echo Build completed"
+    "build": "echo 'Building project' && mkdir -p dist && cp -r index.html script.js style.css dist/",
+    "start": "node script.js"
   },
-  "author": "PACAL",
-  "license": "MIT",
-  "dependencies": {
-    "node-fetch": "^3.2.10"
-  },
-  "devDependencies": {
-    "eslint": "^8.50.0"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
