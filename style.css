@@ -1,52 +1,76 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #1c1c1c;
-    color: white;
-    text-align: center;
     margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Header */
+header {
+    background: #6200ea;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header input {
+    margin-top: 10px;
+    padding: 10px;
+    width: 60%;
+    max-width: 400px;
+    border: none;
+    border-radius: 5px;
+}
+
+header button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: #ff6f00;
+    color: white;
+    cursor: pointer;
+}
+
+header button:hover {
+    background: #e65100;
+}
+
+/* Playlist */
+main {
+    padding: 20px;
+}
+
+#playlist {
+    list-style: none;
     padding: 0;
 }
 
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-}
-
-#search-bar {
-    width: 100%;
+#playlist li {
     padding: 10px;
-    font-size: 16px;
-    margin: 20px 0;
-    border: none;
-    border-radius: 5px;
-    outline: none;
-}
-
-#search-status {
-    font-size: 14px;
-    color: #888;
-    visibility: hidden;
-}
-
-#results {
-    margin-top: 20px;
+    border-bottom: 1px solid #ddd;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.result-item {
-    background-color: #292929;
-    padding: 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.song-title {
+    font-weight: bold;
 }
 
-.result-item:hover {
-    background-color: #444;
+.song-details {
+    color: #555;
 }
 
-.result-item span {
-    display: block;
+/* Footer */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
