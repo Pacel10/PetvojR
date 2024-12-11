@@ -4,23 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultsList = document.getElementById("results-list");
   const playlistList = document.getElementById("playlist-list");
 
-  // Example songs and playlists (mock data)
-  const songs = [
-    { title: "Shape of You", artist: "Ed Sheeran" },
-    { title: "Blinding Lights", artist: "The Weeknd" },
-    { title: "Levitating", artist: "Dua Lipa" },
-    { title: "Bad Habits", artist: "Ed Sheeran" },
-  ];
-
-  const playlists = {
-    "Chill Vibes": ["Shape of You", "Levitating"],
-    "Workout Mix": ["Blinding Lights", "Bad Habits"],
-    "Top 2024 Hits": ["Shape of You", "Blinding Lights", "Levitating"],
-  };
-
-  // Search for songs
+  // Search for songs using Centova Cast widget
   searchButton.addEventListener("click", () => {
-    const query = searchInput.value.toLowerCase();
+    const query = searchInput.value.trim();
     resultsList.innerHTML = ""; // Clear previous results
 
     if (!query) {
@@ -28,38 +14,34 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const filteredSongs = songs.filter(
-      song =>
-        song.title.toLowerCase().includes(query) ||
-        song.artist.toLowerCase().includes(query)
-    );
+    // Trigger Centova Cast request search widget
+    const searchWidget = document.querySelector(".cc_requests");
+    if (searchWidget) {
+      searchWidget.setAttribute("data-query", query);
 
-    if (filteredSongs.length > 0) {
-      filteredSongs.forEach(song => {
-        const li = document.createElement("li");
-        li.textContent = `${song.title} by ${song.artist}`;
-        resultsList.appendChild(li);
-      });
+      // Allow Centova Cast widget to handle the search
+      const searchEvent = new Event("change");
+      searchWidget.dispatchEvent(searchEvent);
     } else {
-      resultsList.innerHTML = "<li>No results found.</li>";
+      resultsList.innerHTML = "<li>Search widget is not configured correctly.</li>";
     }
   });
 
-  // Show playlist details
+  // Show playlist details (Centova Cast On-Demand Widget)
   playlistList.addEventListener("click", event => {
     if (event.target.tagName === "LI") {
       const playlistName = event.target.textContent;
-      const playlistSongs = playlists[playlistName];
+      const playlistWidget = document.querySelector(".cc_ondemand_content");
 
       resultsList.innerHTML = ""; // Clear search results
-      if (playlistSongs) {
-        playlistSongs.forEach(songTitle => {
-          const li = document.createElement("li");
-          li.textContent = songTitle;
-          resultsList.appendChild(li);
-        });
+      if (playlistWidget) {
+        playlistWidget.setAttribute("data-query", playlistName);
+
+        // Allow Centova Cast widget to handle the playlist display
+        const playlistEvent = new Event("change");
+        playlistWidget.dispatchEvent(playlistEvent);
       } else {
-        resultsList.innerHTML = "<li>Playlist is empty or unavailable.</li>";
+        resultsList.innerHTML = "<li>Playlist widget is not configured correctly.</li>";
       }
     }
   });
