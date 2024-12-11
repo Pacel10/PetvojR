@@ -9,31 +9,20 @@
   <title>Petvoj Radio</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="favicon.png">
-  <script language="javascript" type="text/javascript" src="https://control.internet-radio.com:2199/system/request.js"></script>
 </head>
 <body>
   <header>
-    <h1>Welcome to Petvoj Radio</h1>
-    <nav>
-      <button class="menu-toggle">Menu</button>
-      <ul class="menu">
-        <li><a href="https://control.internet-radio.com:2199/start/petvoj" target="_blank">Listen Live</a></li>
-        <li><a href="/api/search">Search</a></li>
-      </ul>
-    </nav>
+    <h1>🎵 Welcome to Petvoj Radio 🎵</h1>
+    <p>Stream your favorite music and explore playlists on demand!</p>
   </header>
 
   <main>
     <section>
-      <h2>About Petvoj Radio</h2>
-      <p>Your favorite tunes, streamed directly to your device. Whether you're here for chill beats or high-energy tracks, Petvoj Radio has something for everyone.</p>
-    </section>
-
-    <section>
-      <h2>Song Request</h2>
-      <p>Use the form below to request your favorite songs.</p>
-      <div id="request-form">
-        <!-- This script dynamically generates the song request form -->
+      <h2>🎶 On-Demand Content</h2>
+      <p>Browse and listen to your favorite tracks directly from Petvoj Radio's on-demand collection.</p>
+      <!-- On-Demand Widget -->
+      <div class="cc_ondemand_content" data-username="petvoj" data-charset="CP1250" data-mount="/api/search">
+        Loading ...
       </div>
     </section>
   </main>
@@ -42,6 +31,7 @@
     <p>&copy; 2024 Petvoj Radio. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Include On-Demand Script -->
+  <script language="javascript" type="text/javascript" src="https://control.internet-radio.com:2199/system/ondemand.js"></script>
 </body>
 </html>
