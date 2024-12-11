@@ -25,12 +25,10 @@ main {
 }
 
 #search-input {
-  width: 100%;
-  max-width: 300px;
+  width: 300px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-sizing: border-box;
 }
 
 #search-button {
@@ -40,7 +38,6 @@ main {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-left: 10px;
 }
 
 #search-button:hover {
@@ -58,42 +55,9 @@ main {
   margin-bottom: 5px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background 0.3s;
 }
 
 #results-list li:hover, #playlist-list li:hover {
   background: #f0f8ff;
-  cursor: pointer;
-}
-
-/* Centova Cast Widget Styling */
-.cc_requests, .cc_ondemand_content {
-  background: white;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 20px;
-}
-
-.cc_requests h2, .cc_ondemand_content h2 {
-  margin-top: 0;
-  font-size: 1.2em;
-  color: #0073e6;
-}
-
-.cc_requests ul, .cc_ondemand_content ul {
-  list-style: none;
-  padding: 0;
-}
-
-.cc_requests li, .cc_ondemand_content li {
-  padding: 10px;
-  background: #f9f9f9;
-  margin-bottom: 5px;
-  border-radius: 5px;
-}
-
-.cc_requests li:hover, .cc_ondemand_content li:hover {
-  background: #eef;
   cursor: pointer;
 }
