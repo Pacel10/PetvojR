@@ -10,11 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Step 2: Install dependencies (optional, include only if using build tools)
+      - name: Install dependencies
+        run: |
+          npm install
+
+      # Step 3: Build the static website (update `npm run build` for your setup)
+      - name: Build static site
+        run: |
+          npm run build
+
+      # Step 4: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+          publish_dir: ./dist # Update this to your actual output directory
+          force_orphan: true # Ensures clean branch (if necessary)
