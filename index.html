@@ -3,35 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Petvoj Radio - The best streaming platform for your favorite tunes.">
-  <meta name="keywords" content="Petvoj, Radio, Stream, Music, Playlist">
-  <meta name="author" content="Petvoj Team">
   <title>Petvoj Radio</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
-  <header>
-    <h1>🎵 Welcome to Petvoj Radio 🎵</h1>
-    <p>Stream your favorite music and explore playlists on demand!</p>
-  </header>
+  <h1>Welcome to Petvoj Radio</h1>
 
-  <main>
-    <section>
-      <h2>🎶 On-Demand Content</h2>
-      <p>Browse and listen to your favorite tracks directly from Petvoj Radio's on-demand collection.</p>
-      <!-- On-Demand Widget -->
-      <div class="cc_ondemand_content" data-username="petvoj" data-charset="CP1250" data-mount="/api/search">
-        Loading ...
-      </div>
-    </section>
-  </main>
+  <!-- Request Widget -->
+  <div class="cc_requests" data-username="petvoj" data-charset="CP1250" data-mount="/api/search">
+    Loading...
+  </div>
 
-  <footer>
-    <p>&copy; 2024 Petvoj Radio. All rights reserved.</p>
-  </footer>
+  <!-- On-Demand Widget -->
+  <div class="cc_ondemand_content" data-username="petvoj" data-charset="CP1250" data-mount="/api/search">
+    Loading...
+  </div>
 
-  <!-- Include On-Demand Script -->
-  <script language="javascript" type="text/javascript" src="https://control.internet-radio.com:2199/system/ondemand.js"></script>
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script type="text/javascript" src="https://control.internet-radio.com:2199/system/request.js"></script>
+  <script type="text/javascript" src="https://control.internet-radio.com:2199/system/ondemand.js"></script>
 </body>
 </html>
