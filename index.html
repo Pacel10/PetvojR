@@ -3,25 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Radio Playlist Search</title>
+  <meta name="description" content="Petvoj Radio - The best streaming platform for your favorite tunes.">
+  <meta name="keywords" content="Petvoj, Radio, Stream, Music, Playlist">
+  <meta name="author" content="Petvoj Team">
+  <title>Petvoj Radio</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
-  <div id="background">
-    <div class="container">
-      <h1>🎵 Centova Cast Radio 🎵</h1>
-      <p>Search for a song in the playlist or view the entire playlist below.</p>
-      
-      <input type="text" id="searchBox" placeholder="Search for a song..." />
-      <button id="searchBtn">Search</button>
-      <button id="viewPlaylistBtn">View Full Playlist</button>
-      
-      <div id="playlistContainer">
-        <h2>Playlist</h2>
-        <ul id="playlist"></ul>
-      </div>
-    </div>
-  </div>
+  <header>
+    <h1>Welcome to Petvoj Radio</h1>
+    <nav>
+      <button class="menu-toggle">Menu</button>
+      <ul class="menu">
+        <li><a href="/api/search">Search</a></li>
+        <li><a href="/api/playlist">Playlist</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>About Petvoj Radio</h2>
+      <p>Your favorite tunes, streamed directly to your device. Whether you're here for chill beats or high-energy tracks, Petvoj Radio has something for everyone.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Petvoj Radio. All rights reserved.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
