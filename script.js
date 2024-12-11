@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to fetch song data.");
+        throw new Error("Failed to fetch song data. Response not OK.");
       }
 
       const songData = await response.json();
@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
           li.textContent = `${song.artist} - ${song.title}`;
           li.dataset.songId = song.id;
 
+          // Add click event to add song to the playlist
           li.addEventListener("click", () => {
             addToPlaylist(song);
           });
@@ -56,6 +57,16 @@ document.addEventListener("DOMContentLoaded", () => {
   function addToPlaylist(song) {
     const li = document.createElement("li");
     li.textContent = `${song.artist} - ${song.title}`;
+    li.dataset.songId = song.id;
+
+    // Add a remove button to the playlist item
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+    removeButton.addEventListener("click", () => {
+      playlistList.removeChild(li);
+    });
+
+    li.appendChild(removeButton);
     playlistList.appendChild(li);
   }
 });
