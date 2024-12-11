@@ -1,64 +1,61 @@
-// Updated API Endpoint
-const API_ENDPOINT = "/petvoj";
-
 document.addEventListener("DOMContentLoaded", () => {
-  const searchInput = document.getElementById("search-input");
-  const searchButton = document.getElementById("search-button");
-  const resultsList = document.getElementById("results-list");
+  const searchInput = document.getElementById("song-search");
+  const searchButton = document.getElementById("search-song-btn");
+  const resultsList = document.getElementById("song-results");
   const playlistList = document.getElementById("playlist-list");
 
-  // Unified function for API calls
-  async function fetchFromAPI(queryType, queryParam = "") {
-    try {
-      const response = await fetch(`${API_ENDPOINT}?type=${queryType}&query=${encodeURIComponent(queryParam)}`);
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-      return await response.json();
-    } catch (error) {
-      console.error("API Error:", error);
-      return null;
-    }
-  }
+  const centovaBaseURL = "/autodj"; // Replace with your actual Centova mount point
 
-  // Search for songs
+  // Search for songs using Centova API
   searchButton.addEventListener("click", async () => {
-    const query = searchInput.value.trim().toLowerCase();
-    resultsList.innerHTML = ""; // Clear previous results
-
+    const query = searchInput.value.trim();
     if (!query) {
       resultsList.innerHTML = "<li>Please enter a search term.</li>";
       return;
     }
 
-    const songs = await fetchFromAPI("search", query);
-    if (songs && songs.length > 0) {
-      songs.forEach(song => {
-        const li = document.createElement("li");
-        li.textContent = `${song.title} by ${song.artist}`;
-        resultsList.appendChild(li);
+    try {
+      // Send request to Centova's song search endpoint
+      const response = await fetch(`${centovaBaseURL}/request/song_search`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({ search: query }),
       });
-    } else {
-      resultsList.innerHTML = "<li>No results found.</li>";
-    }
-  });
 
-  // Display playlists
-  playlistList.addEventListener("click", async (event) => {
-    if (event.target.tagName === "LI") {
-      const playlistName = event.target.textContent.trim();
-      resultsList.innerHTML = ""; // Clear results
+      if (!response.ok) {
+        throw new Error("Failed to fetch song data.");
+      }
 
-      const playlistSongs = await fetchFromAPI("playlist", playlistName);
-      if (playlistSongs && playlistSongs.length > 0) {
-        playlistSongs.forEach(song => {
+      const songData = await response.json();
+      resultsList.innerHTML = ""; // Clear existing results
+
+      if (songData.songs && songData.songs.length > 0) {
+        songData.songs.forEach((song) => {
           const li = document.createElement("li");
-          li.textContent = song;
+          li.textContent = `${song.artist} - ${song.title}`;
+          li.dataset.songId = song.id;
+
+          li.addEventListener("click", () => {
+            addToPlaylist(song);
+          });
+
           resultsList.appendChild(li);
         });
       } else {
-        resultsList.innerHTML = "<li>No songs found in this playlist.</li>";
+        resultsList.innerHTML = "<li>No songs found.</li>";
       }
+    } catch (error) {
+      console.error("Error fetching songs:", error);
+      resultsList.innerHTML = "<li>There was an error fetching song data.</li>";
     }
   });
+
+  // Add song to playlist
+  function addToPlaylist(song) {
+    const li = document.createElement("li");
+    li.textContent = `${song.artist} - ${song.title}`;
+    playlistList.appendChild(li);
+  }
 });
