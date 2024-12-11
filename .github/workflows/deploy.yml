@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main       # Trigger workflow on push to the 'main' branch
+      - main  # Replace with your default branch name, if not 'main'
 
 jobs:
   deploy:
@@ -14,13 +14,13 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Install dependencies
-      run: npm install    # Replace this with your dependency installation command if different
+      run: npm install
 
-    - name: Build the project
-      run: npm run build  # Replace this with your build command if different
+    - name: Build project
+      run: npm run build
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GH_TOKEN }}
-        publish_dir: ./dist  # Update to your build output folder if different
+        publish_dir: ./dist
