@@ -1,76 +1,46 @@
-/* General styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f5;
-    color: #333;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-h1 {
-    color: #0073e6;
-    margin-bottom: 20px;
+/* Background Color with placeholder name */
+#background {
+  background-color: black; /* BACKGROUND COLOR */
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
 }
 
-#request-form, #song-list {
-    margin: 20px auto;
-    max-width: 600px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #fff;
+/* Container */
+.container {
+  text-align: center;
+  width: 80%;
+  max-width: 600px;
 }
 
-#request-form h2, #song-list h2 {
-    color: #0056b3;
+/* Playlist Box */
+#playlistContainer {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 15px;
 }
 
-form label {
-    display: block;
-    margin: 10px 0;
-    text-align: left;
+#playlist ul {
+  list-style: none;
 }
 
-form input[type="text"], form input[type="button"] {
-    width: 100%;
-    padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+#playlist li {
+  padding: 10px;
+  border-bottom: 1px solid #444;
+  cursor: pointer;
 }
 
-form input[type="button"] {
-    background-color: #0073e6;
-    color: #fff;
-    cursor: pointer;
-}
-
-form input[type="button"]:hover {
-    background-color: #0056b3;
-}
-
-#songs {
-    list-style: none;
-    padding: 0;
-}
-
-#songs li {
-    margin: 5px 0;
-}
-
-#songs a {
-    text-decoration: none;
-    color: #0073e6;
-    font-size: 16px;
-}
-
-#songs a:hover {
-    color: #0056b3;
-}
-
-#audio-player {
-    margin-top: 20px;
-    width: 100%;
-    max-width: 400px;
+#playlist li:hover {
+  background: #333;
 }
