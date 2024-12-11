@@ -7,9 +7,12 @@
     "start": "node script.js",
     "build": "echo Build completed"
   },
-  "author": "Pacal",
+  "author": "PACAL",
   "license": "MIT",
   "dependencies": {
     "node-fetch": "^3.2.10"
+  },
+  "devDependencies": {
+    "eslint": "^8.50.0"
   }
 }
