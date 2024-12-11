@@ -1,25 +1,13 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("Petvoj Radio Widgets Initialized!");
+// Load Request Widget
+(function () {
+  let requestScript = document.createElement("script");
+  requestScript.src = "https://control.internet-radio.com:2199/system/request.js";
+  document.body.appendChild(requestScript);
+})();
 
-    const onDemandWidget = document.querySelector('.cc_ondemand_content');
-    const requestWidget = document.querySelector('.cc_requests');
-
-    if (onDemandWidget) {
-        console.log("On-Demand widget detected in DOM.");
-    } else {
-        console.error("On-Demand widget is missing!");
-    }
-
-    if (requestWidget) {
-        console.log("Request widget detected in DOM.");
-    } else {
-        console.error("Request widget is missing!");
-    }
-
-    // Monitor interactions
-    document.querySelectorAll('button').forEach(button => {
-        button.addEventListener('click', () => {
-            console.log(`Button clicked: ${button.textContent}`);
-        });
-    });
-});
+// Load On-Demand Widget
+(function () {
+  let onDemandScript = document.createElement("script");
+  onDemandScript.src = "https://control.internet-radio.com:2199/system/ondemand.js";
+  document.body.appendChild(onDemandScript);
+})();
