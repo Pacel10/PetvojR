@@ -3,23 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetvojR Playlist</title>
+    <title>PetvojR Radio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>PetvojR Playlist</h1>
-        <input type="text" id="search-box" placeholder="Search for a song or artist...">
-        <button id="show-all">Show All</button>
-    </header>
-    <main>
-        <ul id="playlist">
-            <!-- Songs will be dynamically loaded here -->
-        </ul>
-    </main>
-    <footer>
-        <p>&copy; 2024 PetvojR</p>
-    </footer>
+    <div class="container">
+        <h1>Welcome to PetvojR Radio</h1>
+        <input type="text" id="songSearch" placeholder="Search for a song...">
+        <button id="searchButton">Search</button>
+        <button id="showAll">Show All</button>
+        <div id="songList"></div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
