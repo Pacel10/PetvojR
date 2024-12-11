@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetvojR Radio</title>
+    <title>Petvoj Radio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to PetvojR Radio</h1>
-        <input type="text" id="songSearch" placeholder="Search for a song...">
-        <button id="searchButton">Search</button>
-        <button id="showAll">Show All</button>
-        <div id="songList"></div>
+    <div id="app">
+        <h1>Welcome to Petvoj Radio</h1>
+        <div id="song-list">
+            <h2>Available Songs:</h2>
+            <ul id="songs"></ul>
+        </div>
+        <audio id="audio-player" controls>
+            Your browser does not support the audio element.
+        </audio>
     </div>
     <script src="script.js"></script>
 </body>
