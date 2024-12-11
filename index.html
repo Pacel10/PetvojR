@@ -1,45 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Petvoj Radio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radio Playlist Search</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
-        <h1>Welcome to Petvoj Radio 🎵</h1>
-
-        <!-- Song Request Form -->
-        <div id="request-form">
-            <h2>Request a Song</h2>
-            <form class="cc_request_form" data-username="petvoj" data-charset="CP1250">
-                <div data-type="result"></div>
-                <label>Song Artist: <input type="text" name="request[artist]" size="40" maxlength="127" /></label><br />
-                <label>Song Title: <input type="text" name="request[title]" size="40" maxlength="127" /></label><br />
-                <label>Dedicated to: <input type="text" name="request[dedication]" size="40" maxlength="127" /></label><br />
-                <label>Your Name: <input type="text" name="request[sender]" size="40" maxlength="127" /></label><br />
-                <label>Your Email: <input type="text" name="request[email]" size="40" maxlength="127" /></label><br />
-                <input type="button" value="Submit Song Request" data-type="submit" /><br />
-            </form>
-        </div>
-
-        <!-- Song List -->
-        <div id="song-list">
-            <h2>Available Songs:</h2>
-            <ul id="songs"></ul>
-        </div>
-
-        <!-- Audio Player -->
-        <audio id="audio-player" controls>
-            Your browser does not support the audio element.
-        </audio>
+  <div id="background">
+    <div class="container">
+      <h1>🎵 Centova Cast Radio 🎵</h1>
+      <p>Search for a song in the playlist or view the entire playlist below.</p>
+      
+      <input type="text" id="searchBox" placeholder="Search for a song..." />
+      <button id="searchBtn">Search</button>
+      <button id="viewPlaylistBtn">View Full Playlist</button>
+      
+      <div id="playlistContainer">
+        <h2>Playlist</h2>
+        <ul id="playlist"></ul>
+      </div>
     </div>
+  </div>
 
-    <!-- Centova Cast Request Script -->
-    <script language="javascript" type="text/javascript" src="https://control.internet-radio.com:2199/system/request.js"></script>
-
-    <!-- Custom Script -->
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
