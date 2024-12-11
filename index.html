@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Request System</title>
+    <title>PetvojR Playlist</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Request Your Favorite Songs!</h1>
-        <input type="text" id="search-bar" placeholder="Type here to search">
-        <p id="search-status">Searching...</p>
-        <div id="results"></div>
-    </div>
+    <header>
+        <h1>PetvojR Playlist</h1>
+        <input type="text" id="search-box" placeholder="Search for a song or artist...">
+        <button id="show-all">Show All</button>
+    </header>
+    <main>
+        <ul id="playlist">
+            <!-- Songs will be dynamically loaded here -->
+        </ul>
+    </main>
+    <footer>
+        <p>&copy; 2024 PetvojR</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
