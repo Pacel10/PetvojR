@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Deploy Website
 
 on:
   push:
@@ -7,13 +7,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -24,11 +24,6 @@ jobs:
       - name: Build project
         run: npm run build
 
-  deploy:
-    runs-on: ubuntu-22.04
-    needs: build
-
-    steps:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

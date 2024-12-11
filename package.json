@@ -1,12 +1,12 @@
 {
   "name": "petvojr",
   "version": "1.0.0",
-  "description": "A web app for music streaming",
-  "main": "script.js",
   "scripts": {
-    "build": "echo 'Building project' && mkdir -p dist && cp -r index.html script.js style.css dist/",
-    "start": "node script.js"
+    "start": "node server.js",
+    "build": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "gh-pages": "^4.0.0"
+  }
 }
